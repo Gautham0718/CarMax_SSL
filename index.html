@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSL Certificate Checker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            margin: 50px;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            margin: auto;
+        }
+
+        textarea {
+            width: 90%;
+            height: 100px;
+            font-size: 16px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: none;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        #output {
+            margin-top: 20px;
+            font-size: 16px;
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>SSL Certificate Checker</h1>
+        <p>Upload a TXT file with four-digit numbers separated by commas:</p>
+        <input type="file" id="fileInput" accept=".txt">
+        <br>
+        <button id="checkSSL">Check SSL</button>
+
+        
+
+        <!-- Loader animation -->
+        <div id="loader" class="loader" style="display: none;"></div>
+
+        <div id="output"></div>
+    </div>
+
+    <style>
+        .loader {
+            border: 6px solid #f3f3f3;
+            border-top: 6px solid #3498db;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+
+    <script src="frontend.js"></script>
+</body>
+
+</html>
+
+<!-- <p>Enter four-digit numbers to ADD (comma-separated):</p>
+        <input type="text" id="addInput" placeholder="e.g., 6113, 7255">
+
+        <p>Enter four-digit numbers to REMOVE (comma-separated):</p>
+        <input type="text" id="removeInput" placeholder="e.g., 6142, 7255">
+
+        <br>
+        <button id="checkSSL">Check SSL</button> -->
