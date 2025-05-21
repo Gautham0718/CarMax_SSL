@@ -58,7 +58,7 @@ const express = require("express");
 const cors = require("cors");
 const https = require("https");
 const dns = require("dns").promises;
-dns.setServers(["10.2.1.5", "10.2.1.6", "10.2.1.7", "10.16.205.150", "10.161.204.215"]); // Set internal DNS
+dns.setServers(["10.2.1.5", "10.2.1.6"]); // Set internal DNS
 const path = require("path");
 const app = express();
 app.use(cors());
