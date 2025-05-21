@@ -101,7 +101,7 @@ async function getCertificateDetails(number) {
 }
 
 // Serve static files from the "src" folder
-app.use(express.static(path.join(__dirname, "src")));
+app.use(express.static(path.join(__dirname)));
 
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "src", "index.html"));
