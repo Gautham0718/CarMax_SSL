@@ -181,7 +181,7 @@ document.getElementById("checkSSL").addEventListener("click", async () => {
         }
 
         try {
-            const response = await fetch("http://localhost:3000/check", {
+            const response = await fetch("https://carmax-ssl.onrender.com/check", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ numbers })
