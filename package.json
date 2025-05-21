@@ -4,5 +4,9 @@
     "csv-writer": "^1.6.0",
     "express": "^5.1.0",
     "ssl-cert-info": "^1.0.1"
+  },
+  "scripts": {
+    "build": "npm install && npm run compile",
+    "start": "node server.js"
   }
 }
