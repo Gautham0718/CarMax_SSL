@@ -58,22 +58,32 @@ const express = require("express");
 const cors = require("cors");
 const https = require("https");
 const dns = require("dns").promises;
-dns.setServers(["10.2.1.5", "10.2.1.6"]); // Set internal DNS
 const path = require("path");
+
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-
-// Function to resolve hostname to IP
+// Function to resolve hostname to IP (Fixes ERR_INVALID_ARG_TYPE)
 async function resolveHostname(hostname) {
     try {
-        const controller = new AbortController();
-        const timeout = setTimeout(() => controller.abort(), 10000); // Increase timeout to 10 seconds
+        if (typeof hostname !== "string") {
+            console.error(`❌ Invalid hostname format:`, hostname);
+            return null;
+        }
 
-        const addresses = await dns.resolve(hostname, { signal: controller.signal });
-        clearTimeout(timeout);
-        return addresses[0];
+        console.log(`🔍 Resolving DNS for: ${hostname}`);
+        
+        let addresses;
+        try {
+            addresses = await dns.resolve(hostname, "A"); // Explicitly specify "A" type
+        } catch (resolveError) {
+            console.warn(`⚠️ DNS.resolve failed, trying DNS.lookup...`);
+            addresses = await dns.lookup(hostname); // Fallback to lookup if resolve fails
+        }
+
+        console.log(`✅ Resolved IPs: ${addresses}`);
+        return Array.isArray(addresses) ? addresses[0] : addresses.address;
     } catch (error) {
         console.error(`❌ DNS resolution failed for ${hostname}:`, error);
         return null;
@@ -93,7 +103,7 @@ async function getCertificateDetails(number) {
 
         if (!resolvedIP) {
             console.warn(`⚠️ Skipping ${hostname}, DNS resolution failed.`);
-            continue; // Move to the next suffix if DNS resolution fails
+            continue;
         }
 
         console.log(`✅ Using IP: ${resolvedIP} for ${hostname}`);
@@ -123,11 +133,11 @@ async function getCertificateDetails(number) {
 
                 req.on("error", (err) => {
                     console.error(`❌ Request error for ${website}:`, err);
-                    req.destroy(); // Ensure request cleanup
+                    req.destroy();
                     reject(err);
                 });
 
-                req.end(); // Close request properly
+                req.end();
             });
 
             return { website, valid_to: validTo };
@@ -146,7 +156,7 @@ async function getCertificateDetailsSequentially(numbers) {
     for (const number of numbers) {
         const result = await getCertificateDetails(number);
         results.push(result);
-        await new Promise(resolve => setTimeout(resolve, 500)); // 500ms delay between requests
+        await new Promise(resolve => setTimeout(resolve, 500)); // Delay requests to prevent overload
     }
 
     return results;
