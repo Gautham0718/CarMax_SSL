@@ -164,5 +164,5 @@ app.post("/check", async (req, res) => {
 });
 
 // Server Port Configuration
-const PORT = 3000;
+const PORT = 9440;
 app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
