@@ -7,7 +7,7 @@
   },
   "scripts": {
     "build": "npm install && npm run compile",
-    "compile": "echo 'Nothing to compile!'",  // Replace with actual compile steps if needed
+    "compile": "echo 'Nothing to compile!'",
     "start": "node server.js"
   }
 }
