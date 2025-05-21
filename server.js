@@ -99,6 +99,14 @@ async function getCertificateDetails(number) {
     return { website: `${number} (No valid suffix)`, valid_to: "Error fetching" };
 }
 
+// Serve static files from the "src" folder
+app.use(express.static(path.join(__dirname, "src")));
+
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "src", "index.html"));
+});
+
+
 // API Endpoint to handle requests from frontend.js
 app.post("/check", async (req, res) => {
     const numbers = req.body.numbers || [];
