@@ -64,14 +64,18 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+dns.setServers(["8.8.8.8"]);
+
 // Function to resolve hostname to IP
 async function resolveHostname(hostname) {
     try {
+        console.log(`🔍 Resolving DNS for: ${hostname}`);
         const addresses = await dns.resolve(hostname);
-        return addresses[0]; // Return first resolved IP
+        console.log(`✅ Resolved IPs: ${addresses}`);
+        return addresses[0]; 
     } catch (error) {
         console.error(`❌ DNS resolution failed for ${hostname}:`, error);
-        return null; // Return null if resolution fails
+        return null; 
     }
 }
 
