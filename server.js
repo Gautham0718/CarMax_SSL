@@ -115,5 +115,5 @@ app.post("/check", async (req, res) => {
     res.json(results);
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = 9440;
 app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
