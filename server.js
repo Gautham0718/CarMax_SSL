@@ -58,13 +58,12 @@ const express = require("express");
 const cors = require("cors");
 const https = require("https");
 const dns = require("dns").promises;
+dns.setServers(["8.8.8.8", "8.8.4.4"]); // Use Google's DNS
 const path = require("path");
-
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-dns.setServers(["8.8.8.8"]);
 
 // Function to resolve hostname to IP
 async function resolveHostname(hostname) {
