@@ -68,13 +68,15 @@ app.use(express.json());
 // Function to resolve hostname to IP
 async function resolveHostname(hostname) {
     try {
-        console.log(`🔍 Resolving DNS for: ${hostname}`);
-        const addresses = await dns.resolve(hostname);
-        console.log(`✅ Resolved IPs: ${addresses}`);
-        return addresses[0]; 
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 10000); // Increase timeout to 10 seconds
+
+        const addresses = await dns.resolve(hostname, { signal: controller.signal });
+        clearTimeout(timeout);
+        return addresses[0];
     } catch (error) {
         console.error(`❌ DNS resolution failed for ${hostname}:`, error);
-        return null; 
+        return null;
     }
 }
 
